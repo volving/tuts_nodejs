@@ -188,3 +188,6 @@ local.properties
 *.tmproj
 *.tmproject
 tmtags
+
+###CodeKit###
+*.codekit
