@@ -1,0 +1,1 @@
+var http=require("http"),listener=function(e,t){t.writeHead(200,{"Content-Type":"text/plain"}),t.end("Hello, world!")},server=http.createServer(listener);server.listen(8e3),console.log("Server started on localhost:8000; press Ctrl+C to terminate...");

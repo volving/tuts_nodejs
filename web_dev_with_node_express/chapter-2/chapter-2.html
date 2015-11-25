@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1 id="第二章node从起步学起">第二章 Node从起步学起</h1>
+
+<ul>
+<li><a href="#s1">安装Node， 在shell里使用Node</a></li>
+<li><a href="#s2">NPM</a></li>
+<li><a href="#s3">编辑器</a></li>
+<li><a href="#s4">一个简单实例</a></li>
+<li><a href="#s5">Event-Driven Programming事件驱动编程</a></li>
+<li><a href="#s6">Routing 路由</a></li>
+<li><a href="#s7">Serving Static Resource 提供静态资源服务</a></li>
+</ul>
+
+<h2 id="s1">安装Node， 在shell里使用Node</h2>
+
+<h3 id="安装：">安装：</h3>
+
+<p>首次安装，你需要到官网下载安装版或源码进行编译安装
+移步<a href="http://nodejs.org">Nodejs官网</a>，下载所需要的版本或直接下载源码各取所需。</p>
+
+<h3 id="运行">运行</h3>
+
+<p>Node的运行依赖于Shell命令， 十分简单，<code>node &lt;filename&gt;</code>, 至于其他的命令，可以用<code>node --help</code>来查看，不在话下
+<hr/><hr/></p>
+
+<h2 id="s2">NPM</h2>
+
+<p>Node包管理器NPM（Node Packge Manager)可以很方便得安装卸载相应的应用包， 使用起来十分顺手 </p>
+
+<ol>
+<li><code>npm install -S -g &lt;package-name&gt;</code>, e.g.<code>npm install --g grunt-cli``npm install --save-dev grunt</code>
+其中，上述命令中的<code>-S</code>代表<code>Save</code>，表明安装到本个项目（or 目录）；<code>－g</code>代表<code>Global</code>，指明安装到全局环境, 这里或许你得用刀root权限了；<code>--save-dev</code>顾名思义，就是安装到在开发环境中，运行环境不安装。</li>
+<li><code>npm install</code>， 假如当前目录是一个项目目录（或包目录，指一个包含<code>package.json</code>的包，通过<code>npm init</code>初始化过的包含<code>package.json</code>的包），用此命令可以安装<code>package.json</code>中标明的相关包。 一般我们的项目在上传git仓库的时候，<code>.gitignore</code>中添加<code>node_modules</code>来忽略通过npm安装的包，但会保留我们项目的<code>package.json</code>文件，当我们重新部署的时候就可以用此命令来一次性完成相关包的安装。</li>
+<li><code>npm remove &lt;package-name&gt;</code>，删除包</li>
+</ol>
+
+<h3 id="tips">Tips</h3>
+
+<p>补充，node可以通过<code>nvm</code>来进行版本的管理，相关资料自行google之（bing之，百度之）。</p>
+
+<p><hr/><hr/></p>
+
+<h2 id="s3">编辑器</h2>
+
+<p>使用任何你喜欢的编辑器来编写node代码， 因为nodejs使用的是纯javascript，所以最好找一个支持js代码高亮的编辑器。推荐Sublime Text 3，带有JS插件的Eclipse，Atom，Vim，Emacs&#8230; 还有万恶的WebStorm，如果你有钱且不在乎订阅WebStorm使用权请把“万恶”去掉。 对微软那一套东西不感冒不赞成，除了玩几局游戏（且觉得windows是个好游戏机）以外一般不开windows主机，所以不要问windows下的问题，包括它的记事本。。。<br/>
+<hr/><hr/>
+<h2 id="s4">一个简单实例</h2></p>
+
+<p>说完了废话，到时间该</p>
+
+<blockquote>
+<p>Talking is cheap, show me the code！ </p>
+</blockquote>
+
+<p>参照本章src目录下的 <strong>helloWorld.js</strong> 并用<code>node helloWorld.js</code>运行起来（如果你喜欢边修改文件边看到实时更新，那我推荐你安装<code>nodemon</code>，仅仅一行代码<code>npm install -g nodemon</code>便可完成，之后用<code>nodemon helloWorld.js</code>，然后就享受其便利吧。</p>
+
+<pre><code class="js">var http = require('http');
+
+var listener = function(req, res){
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello, world!');
+};
+
+var server = http.createServer(listener);
+
+server.listen(8000);
+
+console.log('Server started on localhost:8000; press Ctrl+C to terminate...');
+</code></pre>
+
+<p>解释一下这段代码： </p>
+
+<ol>
+<li>第1行 用标准的JavaScript方式引入了http模块。
+第3行 定义了一个函数， 它接受两个参数，一个是Request实例，一个是Response实例，并在后者中写入HTML头信息<code>{...}</code>以及文本信息<code>Hello, world!</code>。</li>
+<li>第8行 创建了一个http的server,并把上一步定义的函数传递进去。其实这样创建了一个在接受到http请求后，要经过listener的处理的“服务器”。</li>
+<li>第10行 将上一步创建的server对象跑起来并监听<code>8000</code>端口。</li>
+<li>第12行 标准js控制台输出，无需多言。</li>
+</ol>
+
+<p>简化版的代码如下 </p>
+
+<pre><code class="js">require('http').createServer(function(req, res){
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello, world!');
+}).listen(8000);
+／／console.log('Server started on localhost:8000; press Ctrl+C to terminate...');
+</code></pre>
+
+<p>瞧啊，你用了4行就跑起了一个会说 ”Hello, world!&quot;的服务器，他也只会说这个。。。<br/>
+不得不说，js的链式调用真的很简洁！其实你在jQuery里会时刻领教到。</p>
+
+<p><hr><hr></p>
+
+<h2 id="s5">Event-Driven Programming事件驱动编程</h2>
+
+<p>开发要旨便是：作为程序员的你得知道那些事件（Events）可以捕获，然后对其作相应的处理。 一个很好的例子是，用户对网页上的元素进行鼠标的悬停，单击，双击，然后浏览器捕获这些事件（悬停，单击，双击）并分别用定义好的函数来对事件进行处理。 同样，服务器端的事件驱动也就大概如此，只是事件不同而已。<br/>
+<hr/><hr/></p>
+
+<h2 id="s6">Routing 路由</h2>
+
+<blockquote>
+<p>Show me the CODE! </p>
+</blockquote>
+
+<pre><code class="js">var http = require('http');
+
+http.createServer(function(req, res){
+    console.log(req.url);
+    var path = req.url.replace(/\/*(?:\?.*)?$/, '').toLowerCase();
+    console.log(path);
+    switch(path){
+        case '':
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Homepage');
+            break;
+        case '/about':
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('about');
+            break;
+        default: 
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Not Found');
+            break;
+    }
+}).listen(8000);
+
+
+</code></pre>
+
+<p>上面代码多了一个正则表达式，大意是替换掉url路径中的查询字串和以及路径后面跟随的<code>／</code>
+把正则表达式匹配的字串删掉后剩下的路径部分，进行switch匹配，分别回应客户端对应的字串。</p>
+
+<p><hr/><hr/></p>
+
+<h2 id="s7">Serving Static Resource 提供静态资源服务</h2>
+
+<p>如果你曾静用过Apach或IIS，一定记得只要把文件扔到正确的目录，就可以通过http访问。但这在nodejs里行不通： 你得打开对应的文件，读取它，然后返回给客户端。所以，给出以下实例：</p>
+
+<blockquote>
+<p>Show me the CODE!</p>
+</blockquote>
+
+<pre><code class="js">var http    = require('http');
+var fs      = require('fs');
+
+var serveStaticFile = function(res, path, contentType, statusCode){
+    if(!statusCode){
+        statusCode = 200;
+    }
+    fs.readFile(__dirname.concat(path), function(err, data){
+        if(err){
+            res.writeHead(500, {'Content-Type': contentType});
+            res.end('500-server\'s dizzying');
+            return;
+        }else{
+            res.writeHead(500, {'Content-Type': contentType});
+            res.end(data);
+        }
+    });
+};
+
+http.createServer(function(req, res){
+    var path = req.url.replace(/\/*(?:\?.*)?$/, '').toLowerCase();
+    switch(path){
+        case '':
+            console.log('Requested for /home');
+            serveStaticFile(res, '/public/home.html', 'text/html');
+            break;
+        case '/about':
+            serveStaticFile(res, '/public/about.html', 'text/html');
+            break;
+        case '/img/logo':
+            serveStaticFile(res, '/public/img/logo.jpg', 'image/jpeg');
+            break;
+        default: 
+            serveStaticFile(res, '/public/404.html', 'text/html');
+            break;
+    }
+}).listen(8000);
+</code></pre>
+
+<p>注意第8行用到了一个异步读取文件的方法。第31行提供jpeg格式的文件时Response对象的Content－Type类型！剩下的就是：</p>
+
+<blockquote>
+<p>Read the f**king CODE!</p>
+</blockquote>
+
+</body>
+</html>
