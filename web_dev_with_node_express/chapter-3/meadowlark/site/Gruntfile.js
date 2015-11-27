@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         vendors: 'bower_components'
     };
     grunt.initConfig({
-    	pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
         config: config,
         less: {
             target: {
@@ -37,14 +37,14 @@ module.exports = function(grunt) {
             }
             // ,
             // serve:{
-            // 	files:[{
-            // 		expand: true,
-            // 		cwd: '<%= config.src %>/css/',
-            // 		src: '**/*.less',
-            // 		dest: '<%= config.tmp %>/css/',
-            // 		ext: '.css',
-            // 		extDot: 'last'
-            // 	}]
+            //  files:[{
+            //      expand: true,
+            //      cwd: '<%= config.src %>/css/',
+            //      src: '**/*.less',
+            //      dest: '<%= config.tmp %>/css/',
+            //      ext: '.css',
+            //      extDot: 'last'
+            //  }]
             // }
         },
         autoprefixer: {
@@ -82,25 +82,25 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            options:{
-            	eqeqeq: true,
-            	eqnull: true,
-            	curly: true,
-            	undef: true,
-            	devel: true,
-            	debug: true,
-            	node: true,
-            	browser: true,
-            	globals:{
-            		jQuery: true,
-            		nodejs: true,
-            	}
+            options: {
+                eqeqeq: true,
+                eqnull: true,
+                curly: true,
+                undef: true,
+                devel: true,
+                debug: true,
+                node: true,
+                browser: true,
+                globals: {
+                    jQuery: true,
+                    nodejs: true,
+                }
             },
             sc: {
-            	src: ['<%= config.src_js %>/**/*.js', 'meadowlark.js']
+                src: ['<%= config.src_js %>/**/*.js', 'meadowlark.js']
             },
-            gcfg:{
-            	src: 'Gruntfile.js'
+            gcfg: {
+                src: 'Gruntfile.js'
             }
         },
         uglify: {
@@ -115,13 +115,13 @@ module.exports = function(grunt) {
                     dest: '<%= config.dist_js %>/',
                     ext: '.js',
                     extDot: 'last'
-                },{
-                	expand: true,
-                	cwd: './',
-                	src: 'meadowlark.js',
-                	dest: './',
-                	ext: '.min.js',
-                	extDot: 'last'
+                }, {
+                    expand: true,
+                    cwd: './',
+                    src: 'meadowlark.js',
+                    dest: './',
+                    ext: '.min.js',
+                    extDot: 'last'
                 }]
             }
         },
@@ -139,16 +139,16 @@ module.exports = function(grunt) {
         copy: {
             vendors: {
                 files: [{
-                        expand: true,
-                        cwd: '<%= config.vendors %>',
-                        src: ['**/*/dist/**/*'],
-                        filter: function(d) {
-                            if (d.indexOf('src') > -1) {
-                                return false;
-                            }
-                            return true;
-                        },
-                        dest: '<%= config.dist_vendors %>',
+                    expand: true,
+                    cwd: '<%= config.vendors %>',
+                    src: ['**/*/dist/**/*'],
+                    filter: function(d) {
+                        if (d.indexOf('src') > -1) {
+                            return false;
+                        }
+                        return true;
+                    },
+                    dest: '<%= config.dist_vendors %>/',
                 }],
 
             }
