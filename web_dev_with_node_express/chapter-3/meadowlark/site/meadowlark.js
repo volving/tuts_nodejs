@@ -6,8 +6,9 @@ var app = express();
 var hbs = require('express-handlebars').create({defualtLayout: 'main', extname: '.hbs'});
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-
 //B-1: end //
+app.use(express.static(__dirname + 'public'));
+
 
 app.set('port', process.env.PORT || 8000);
 
@@ -28,6 +29,7 @@ app.use(function(err, req, res){
 	res.status('500');
 	res.render('500');
 });
+
 
 app.listen(app.get('port'), function(){
 	console.log('Express started on http://localhost' + app.get('port') + '; press Ctrl+c to terminate.');
