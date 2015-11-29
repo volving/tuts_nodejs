@@ -182,7 +182,7 @@ module.exports = function(grunt) {
                     events: ['add', 'change']
                 },
                 files: ['<%= config.src_js %>/**/*.js', 'meadowlark.js'],
-                tasks: ['newer:jshint', 'newer:uglify']
+                tasks: ['newer:jshint']
             },
             img: {
                 options: {
