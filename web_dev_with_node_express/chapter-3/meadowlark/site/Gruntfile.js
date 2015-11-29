@@ -9,10 +9,10 @@ module.exports = function(grunt) {
         src_js: 'src/js',
         src_vendors: 'bower_components',
 
-        dist: 'dist',
-        dist_js: 'dist/js',
-        dist_css: 'dist/css',
-        dist_vendors: 'dist/vendors',
+        dist: 'public',
+        dist_js: 'public/js',
+        dist_css: 'public/css',
+        dist_vendors: 'public/vendors',
 
         tmp: 'tmp',
         lessed: 'tmp/lessed',
@@ -161,16 +161,18 @@ module.exports = function(grunt) {
             },
             gruntconfig: {
                 options: {
+                    events: 'all',
                     reload: true
                 },
                 files: ['Gruntfile.js'],
-                events: 'all',
+
                 tasks: ['jshint:gcfg']
             },
             js: {
                 options: {
                     livereload: true,
-                    spawn: true
+                    spawn: true,
+                    events: ['add', 'change']
                 },
                 files: ['<%= config.src_js %>/**/*.js', 'meadowlark.js'],
                 tasks: ['newer:jshint', 'newer:uglify']
@@ -178,10 +180,10 @@ module.exports = function(grunt) {
             vendors: {
                 options: {
                     livereload: true,
+                    events: ['add', 'change'],
                     spawn: true
                 },
-                files: ['<%= config.src_vendors %>/**/dist/*'],
-                events: ['add', 'change'],
+                files: '<%= config.src_vendors %>/**/dist/*',
                 tasks: ['copy:vendors']
             },
             css: {
