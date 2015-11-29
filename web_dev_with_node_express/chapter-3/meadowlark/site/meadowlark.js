@@ -1,6 +1,11 @@
 var express = require('express');
 
 var app = express();
+//B-1: Install express-handlebars view engine //
+var hbs = require('express-handlebars').create({defualtLayout: 'main', extname: '.hbs'});
+app.engine('hbs', hbs.engine);
+app.use('view engine', 'hbs');
+//B-1: end //
 
 app.set('port', process.env.PORT || 8000);
 
