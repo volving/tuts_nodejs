@@ -150,7 +150,14 @@ module.exports = function(grunt) {
                     },
                     dest: '<%= config.dist_vendors %>/',
                 }],
-
+            },
+            img: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.src %>/img/',
+                    src: '**/*',
+                    dest: '<%= config.dist %>/img/'
+                }],
             }
         },
         watch: {
@@ -176,6 +183,13 @@ module.exports = function(grunt) {
                 },
                 files: ['<%= config.src_js %>/**/*.js', 'meadowlark.js'],
                 tasks: ['newer:jshint', 'newer:uglify']
+            },
+            img: {
+                options: {
+                    events: ['add', 'change']
+                },
+                files: ['<%= config.src %>/img/*'],
+                tasks: ['newer:copy:img']
             },
             vendors: {
                 options: {
