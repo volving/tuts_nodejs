@@ -7,7 +7,9 @@ var hbs = require('express-handlebars').create({defualtLayout: 'main', extname: 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 //B-1: end //
-app.use(express.static(__dirname + 'public'));
+
+//注意两个字串在拼接时加上路径斜杠／
+app.use(express.static(__dirname + '/public'));
 
 
 app.set('port', process.env.PORT || 8000);
