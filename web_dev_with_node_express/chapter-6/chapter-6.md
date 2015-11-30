@@ -5,6 +5,11 @@
 
 <h2 id="s1">简介URL的组成</h2>
 
-<Protocal><Host><Port><Path><QueryString><Fragments>
+* <Protocal>
+* <Host>
+* <Port>
+* <Path>
+* <QueryString>
+* <Fragments>
 
 #### 
