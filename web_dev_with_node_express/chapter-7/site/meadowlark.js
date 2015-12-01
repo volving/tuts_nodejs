@@ -2,6 +2,7 @@ var express = require('express');
 
 var app = express();
 
+
 //B-1: Install express-handlebars view engine //
 var hbs = require('express-handlebars').create({
     defualtLayout: 'main',
@@ -19,6 +20,7 @@ var hbs = require('express-handlebars').create({
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+app.set('view cache', true);
 //B-1: end //
 
 //注意两个字串在拼接时加上路径斜杠／
