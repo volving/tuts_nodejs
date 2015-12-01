@@ -51,6 +51,57 @@ var generateQuote = function() {
 };
 
 app.get('/', function(req, res) {
+    //-More information
+    //Express source code
+    //
+    //lib/application.js    //Express's main interface, middleware, view rendering
+    //lib/express.js        //Short shell extends 'connect' with the functions in application.js. 
+                                //returns a function that can be used with http.createServer to 
+                                //actually run an express app.
+    //li/request.js         //Extends Nodejs's http.IncomingMessage object to provide a robust request object.
+    //lib/response.js       //http.ServerResponse - > response object
+    //lib/router/route.js   //Code is short and elegant on basic routing support
+    //
+    //
+    //The response body
+    console.log('-------------------------------------------');
+    // console.log(res.header());
+    console.log(res.status);
+    // console.log(res.status);
+    // console.log(res.redirect(303, 'http://www.baidu.com'));
+    res.send(200, 'text/array/object');
+    // res.json({'a':'aaa'});
+    // res.jsonp();
+    // res.type('text/plain');
+    res.format({
+        'application/json': function() {
+            res.json({
+                'a': 'aaa'
+            });
+        },
+        'application/xml': function() {
+            res.type('application/xml');
+            res.send('');
+        },
+        'text/xml': function() {
+            res.type('text/xml');
+            res.send('');
+        },
+        'text/plain': function() {
+            res.type('text/plain');
+            res.send('Plain text');
+        }
+
+    });
+    res.attachment('file.txt');
+    res.download('~/download/', 'file.txt', function() {});
+    res.sendFile(path, [options], [callback]);
+    res.render('about', {
+        title: 'About Page'
+    });
+    console.log('-------------------------------------------');
+    /* 
+    // The request body
     // req.headers Objec
     console.log(req.headers);
     console.log('url-------------------------------------------');
@@ -95,15 +146,16 @@ app.get('/', function(req, res) {
 
     console.log('protocol-------------------------------------------');
     console.log(req.protocol);
-    
+
     console.log('secure-------------------------------------------');
     // true if the protocol equals to 'https'; req.protocol == 'https'
     console.log(req.secure);
 
     console.log('acceptedLanguages-------------------------------------------');
     // true if the protocol equals to 'https'; req.protocol == 'https'
-    console.log(req);
+    console.log(req.acceptedLanguages);
 
+    */
 
 
 
