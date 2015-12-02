@@ -1,0 +1,49 @@
+<div class="container">
+    <h2>Sign up for our newsletter to receive news and specials!</h2>
+    <form action="/process?form=newsletter" class="newsletterForm form-horizontal" role="form" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="well">
+            <div class="input-group">
+                <span class="input-group-addon">Name</span>
+                <input type="text" id="fieldName" name="name" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon">Email</span>
+                <input type="text" id="fieldEmail" name="email" class="form-control">
+            </div>
+            <br>
+            <div class="input-group center-block">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    $(function(){
+        $('.newsletterForm').on('submit', function(e){
+            e.preventDefault();
+            var action = $(this).attr('action');
+            var $container = $(this).closest('.container');
+
+            $.ajax({
+                url: action,
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    if(data.success){
+                        $container.html('<h2 style="color: red;"> Thank You! </h2>');
+                    }else{
+                        $container.html('Problem happened!');
+                    }
+                },
+                error: function(){
+                    $container.html('Error happened');
+                }
+            })
+        });
+    });
+</script>
