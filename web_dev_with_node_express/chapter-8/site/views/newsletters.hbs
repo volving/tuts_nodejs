@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>Sign up for our newsletter to receive news and specials!</h2>
+    <form action="/process?form=newsletter" class="form-horizontal" role="form" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="well">
+            <div class="input-group">
+                <span class="input-group-addon">Name</span>
+                <input type="text" id="fieldName" name="name" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon">Email</span>
+                <input type="text" id="fieldEmail" name="email" class="form-control">
+            </div>
+            <br>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary form-control">Register</button>
+            </div>
+        </div>
+    </form>
+</div>
