@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try socket.io</title>
+    <style>
+        .centered{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .centered h1, .centered h2 {
+            display: block;
+            text-align: center;
+        }
+    </style>
+    <script src="./jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var io_conn = io.connect();
+
+        io_conn.on('message', function(cc) { $('h2').text(cc); });
+    </script>
+</head>
+
+<body>
+    <div class="centered">
+        <h1>counting up</h1>
+        <h2>Loading...</h2>
+    </div>
+</body>
+
+</html>
